@@ -1,24 +1,27 @@
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import {BrowserRouter as Router, Route, Routes, } from 'react-router-dom'
+
+import Header from './components/Header';
+import NotesListPage from './pages/NotesListPage';
+import NotePage from './pages/NotePage';
 
 function App() {
+
+  const [mode, setMode] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className={`container ${mode ? 'dark' : ''}`}>
+        <div className='app'>
+        <Header mode={mode} setMode={setMode}/>
+          <Routes>
+            <Route path='/' element={<NotesListPage/>}/>
+            <Route path="/note/:noteId" element={<NotePage/>} />
+          </Routes>
+        </div>
+      </div>
+    </Router>
   );
 }
 
